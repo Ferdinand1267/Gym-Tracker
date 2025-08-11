@@ -1,0 +1,14 @@
+# Node (frontend)
+frontend/node_modules
+frontend/.env*
+frontend/dist
+
+# Gradle (backend)
+backend/.gradle
+backend/build
+
+# IDE/OS
+**/.idea
+**/.vscode
+**/.DS_Store
+Thumbs.db
