@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import './Login.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-function App() {
+const Login = () => {
 
   return (
-    <h1>You're currently logged in!</h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center">
+        <div className="box">
+            
+        </div>
+    </div>
   )
 }
 
-export default App
+export default Login;
