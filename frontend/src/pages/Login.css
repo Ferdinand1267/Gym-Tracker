@@ -8,3 +8,27 @@
     padding: 20px;
     
 }
+.input-group {
+    display: flex;
+    flex-direction: column; /* Stack label and input vertically */
+    align-items: start; /* Align items to the left */
+    margin-bottom: 5px; /* Space between input fields */
+}
+.text {
+    color: rgb(49, 51, 56);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.small-button {
+    background-color: blue;
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.small-button:hover {
+    background-color: darkblue;
+}

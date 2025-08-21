@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <h1>You're currently logged in!</h1>
+      <h1>Please Log in to continue</h1>
       <Link to={"/Login"}>
         <button>Go to Login</button>
       </Link>
