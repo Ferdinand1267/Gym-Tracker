@@ -1,8 +1,8 @@
-import { useState } from "react";
 import './Home.css';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
-    return (
+    return (    
     <div>
         <img src="/logo.png" alt="logo" className="logo" width="100"></img>
         <h1>
