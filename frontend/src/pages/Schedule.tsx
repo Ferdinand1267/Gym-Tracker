@@ -1,16 +1,16 @@
 import { useState } from "react";
-import './Home.css';
+import './Schedule.css';
 
-function Home() {
+function Schedule() {
     return (
     <div>
         <img src="/logo.png" alt="logo" className="logo" width="100"></img>
         <h1>
-            <span>Welcome Back, </span>
+            <span>View Schedule</span>
             <span></span>
         </h1>
     </div>
     );
 }
 
-export default Home;
+export default Schedule;

@@ -1,16 +1,16 @@
 import { useState } from "react";
-import './Home.css';
+import './Workouts.css';
 
-function Home() {
+function Workouts() {
     return (
     <div>
         <img src="/logo.png" alt="logo" className="logo" width="100"></img>
         <h1>
-            <span>Welcome Back, </span>
+            <span>Create Workout</span>
             <span></span>
         </h1>
     </div>
     );
 }
 
-export default Home;
+export default Workouts;
