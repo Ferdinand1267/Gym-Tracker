@@ -10,6 +10,8 @@ function Login() {
   const handleLogin = () => {
     try { 
       const data = "Correct credentials" //placeholder
+      localStorage.clear();
+      localStorage.setItem("name",username);
       if (data === "Correct credentials") { 
         navigate('/home');
         return;
