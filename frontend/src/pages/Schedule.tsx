@@ -1,5 +1,6 @@
 import { useState } from "react";
 import './Schedule.css';
+import NavBar from '../NavBar'
 
 function Schedule() {
     return (
@@ -9,6 +10,7 @@ function Schedule() {
             <span>View Schedule</span>
             <span></span>
         </h1>
+        <NavBar/>
     </div>
     );
 }

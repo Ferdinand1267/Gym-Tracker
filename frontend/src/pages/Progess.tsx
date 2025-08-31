@@ -1,5 +1,6 @@
 import { useState } from "react";
 import './Progress.css';
+import NavBar from '../NavBar'
 
 function Progress() {
     return (
@@ -9,6 +10,7 @@ function Progress() {
             <span>View Progress</span>
             <span></span>
         </h1>
+        <NavBar/>
     </div>
     );
 }
