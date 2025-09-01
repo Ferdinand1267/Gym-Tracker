@@ -32,3 +32,10 @@
 .small-button:hover {
     background-color: darkblue;
 }
+
+input[type="text"],
+input[type="password"] {
+    background-color: white;
+    color: black !important;
+    border-radius: 5px;
+}

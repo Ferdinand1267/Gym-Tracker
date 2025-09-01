@@ -9,6 +9,7 @@
     justify-content: center;
     width: 50%;
     border-radius: 10px;
+    margin: 2rem auto;
 
 }
 
@@ -24,6 +25,8 @@
 
 input[type=number] {
     color: white;
+    background-color: gray;
+    border-radius: 4px;
 }
 input[type=text] {
     color: white;
