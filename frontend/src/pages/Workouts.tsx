@@ -12,7 +12,7 @@ type Exercise = {
 type Workout = {
     date: string;
     exercises: Exercise[]
-  };
+}
 
 function Workouts() {
     const [workouts, setWorkouts] = useState([{date: "Jan 1st", exercises: [{name: "Bench Press", weight: 40, reps: 8},{name: "Bicep Curl", weight: 10, reps: 12}]}]);
