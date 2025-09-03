@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './Progress.css';
 import NavBar from '../NavBar'
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend, Label } from 'recharts'
@@ -7,7 +7,13 @@ type Exercise = {name: string; weight: number; reps: number;}
 type Workout = { date: string; exercises: Exercise[]}
 
 function Progress() {
-    const sampleWorkouts: Workout[] = [
+    const [workouts, setWorkouts] = useState<Workout[]>([])
+    useEffect(() => {
+        fetch("http://localhost:8080/api/workouts")
+          .then(response => response.json())
+          .then(data => setWorkouts(data))
+      }, [])
+    /*const sampleWorkouts: Workout[] = [
         { date: "2025-08-20", exercises: [
             { name: "Bench Press", weight: 40, reps: 10 },
             { name: "Squat", weight: 60, reps: 12 }
@@ -28,10 +34,10 @@ function Progress() {
             { name: "Bench Press", weight: 60, reps: 5 },
             { name: "Squat", weight: 80, reps: 6 }
         ]}
-    ] //sample data for frontend
+    ]*/ //sample data for frontend
 
     const benchData: {date: string, weight: number, reps: number}[] =[]
-    sampleWorkouts.forEach(workout => {
+    workouts.forEach(workout => {
     workout.exercises.forEach(exercise => {
         if (exercise.name == "Bench Press") {
             benchData.push({date: workout.date, weight: exercise.weight, reps: exercise.reps})
@@ -118,7 +124,7 @@ function Progress() {
         </div>
         <div className="box">
             <h2>One Rep Max</h2>
-            <p>Exercise - Bench Press: {exercise1Max(sampleWorkouts, "Bench Press")}</p>
+            <p>Exercise - Bench Press: {exercise1Max(workouts, "Bench Press")}</p>
         </div>
 
         <NavBar/>

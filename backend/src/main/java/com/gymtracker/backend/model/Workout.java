@@ -1,4 +1,8 @@
 package com.gymtracker.backend.model;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 @Entity
 public class Workout {
@@ -10,6 +14,10 @@ public class Workout {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference //to serialize parent and children
+    private List<Exercise> exercises;
 
     //getters and setters
     public Long getID(){
@@ -29,5 +37,11 @@ public class Workout {
     }
     public void setUser(User user) {
         this.user=user;
+    }
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }
