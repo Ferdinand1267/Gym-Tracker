@@ -7,36 +7,19 @@ function Login() {
   const [username, setUsername] = useState(""); //stores username input
   const [password, setPassword] = useState(""); // stores password input
   const navigate = useNavigate()
-  const handleLogin = () => {
-    /*try { 
-      const data = "Correct credentials" //placeholder
-      localStorage.clear();
-      localStorage.setItem("name",username);
-      if (data === "Correct credentials") { 
-        navigate('/home');
-        return;
+  const handleLogin = async () => {
+    const response = await fetch("http://localhost:8080/api/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    })
+    const data: boolean = await response.json();
+    if (data) {
+      localStorage.setItem("username", username); // save login
+      navigate("/home");          // redirect using react router
     } else {
-        alert("Invalid credentials. Please try again."); 
+      alert("Username or password is incorrect.");
     }
-    }
-    catch (error) {
-      console.error("Login error:", error); //log and alert any errors
-      alert("An error occurred. Please try again.");
-    }*/
-      fetch("http://localhost:8080/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("Invalid login");
-        return res.json();
-      })
-      .then(user => {
-        localStorage.setItem("userId", user.id); // save login
-        window.location.href = "/home";          // redirect
-      })
-      .catch(err => alert(err.message));
   }
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center">

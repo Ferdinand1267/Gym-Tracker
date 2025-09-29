@@ -38,6 +38,11 @@ function Schedule() {
         setNewWorkout({ date: "", workoutType: "", time: "" })
         setShowForm(false)
     }
+    function removeWorkout(indexRemove: number){
+        const currentWorkouts = [...workouts];
+        currentWorkouts.splice(indexRemove,1);
+        setWorkouts(currentWorkouts);
+    }
 
     return (
     <div>
@@ -60,7 +65,8 @@ function Schedule() {
                 <div key={index}>
                     <span>{workout.date} - </span>
                     <span>{workout.workoutType}: </span>
-                    <span>{workout.time}</span>
+                    <span>{workout.time} </span>
+                    <span><button onClick={() => removeWorkout(index)}>Remove</button></span>
                 </div>
             ))}
         </div>

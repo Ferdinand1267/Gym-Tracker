@@ -14,6 +14,7 @@ function Home() {
     const [showForm, setShowForm] = useState(false)
     const [newWorkout, setNewWorkout] = useState<Workout>({date: "", exercises: []})
     const [newExercise, setNewExercise] = useState<Exercise>({name: "", weight: 0, reps: 0})
+    const totalWorkouts = workouts.length;
 
     useEffect(() => {
         fetch("http://localhost:8080/api/workouts")
@@ -55,6 +56,7 @@ function Home() {
          <div className="boxes">   
             <div className="box">
                 <h3>Summary</h3>
+                <h3>Total workouts: {totalWorkouts}</h3>
             </div>
             <div className="box">
                 <h3>Schedule</h3>
