@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './Schedule.css';
 import NavBar from '../NavBar'
 import { Info, DateTime } from "luxon"
@@ -37,13 +37,17 @@ function Schedule() {
         setWorkouts([...workouts,entry])
         setNewWorkout({ date: "", workoutType: "", time: "" })
         setShowForm(false)
+        
     }
     function removeWorkout(indexRemove: number){
         const currentWorkouts = [...workouts];
         currentWorkouts.splice(indexRemove,1);
         setWorkouts(currentWorkouts);
     }
-
+    useEffect(() => {
+        localStorage.setItem("numberOfWorkouts", String(workouts.length));
+    })
+    
     return (
     <div>
         <img src="/logo.png" alt="logo" className="logo" width="100"></img>

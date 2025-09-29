@@ -18,6 +18,11 @@ function Workouts() {
           .then(data => setWorkouts(data))
       }, [])
 
+    function addExercise() {
+        setNewWorkout({...newWorkout, exercises: [...newWorkout.exercises, newExercise]});
+        setNewExercise({name: "", weight: 0, reps: 0})
+    }
+
     const handleUpdate = () => {
         //this is for frontend testing only
         /*const entry = {
@@ -27,6 +32,15 @@ function Workouts() {
         setNewWorkout({date: "", exercises: []})
         setNewExercise({name: "",weight: 0, reps: 0})
         setShowForm(false)*/
+        let exercisesToSave: Exercise[] = [];
+
+        if (newWorkout.exercises.length > 0) {
+        exercisesToSave = newWorkout.exercises;
+        } else if (newExercise.name) {
+        exercisesToSave = [newExercise];
+        } else {
+        exercisesToSave = [];
+        }
         const workoutToSave = {
             date: newWorkout.date,
             exercises: [newExercise]}   
@@ -39,6 +53,8 @@ function Workouts() {
         .then(savedWorkout => {
             setWorkouts([...workouts, savedWorkout])
             setShowForm(false)
+            setNewWorkout({date: "", exercises: []})
+            setNewExercise({name: "", weight: 0, reps: 0})
         })
     }
 
@@ -53,6 +69,16 @@ function Workouts() {
                 <SearchBar value={newExercise.name} onSearch={(val) => setNewExercise({...newExercise, name: val})}/>
                 <input type="number" placeholder="Weight" value={newExercise.weight} onChange={(e) => setNewExercise({...newExercise, weight: Number(e.target.value)})}/>
                 <input type="number" placeholder="Reps" value={newExercise.reps} onChange={(e) => setNewExercise({...newExercise, reps: Number(e.target.value)})}/>
+                <button type="button" onClick={addExercise}>Add Exercise</button>
+                {newWorkout.exercises.length > 0 && (
+                    <ul>
+                    {newWorkout.exercises.map((ex, i) => (
+                        <li key={i}>
+                        {ex.name} — {ex.weight} kg × {ex.reps}
+                        </li>
+                    ))}
+                    </ul>
+                )}
                 <button onClick={handleUpdate}>Save Workout</button>
             </div>
         )}

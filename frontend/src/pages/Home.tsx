@@ -9,6 +9,14 @@ type Workout = {date: string; exercises: Exercise[]}
 
 function Home() {
     const username = localStorage.getItem("name");
+    const [workoutCount, setWorkoutCount] = useState(0);
+    useEffect(() => {
+        const check = localStorage.getItem("numberOfWorkouts");
+        if (check) {
+            setWorkoutCount(Number(check));
+        }
+    })
+    
 
     const [workouts, setWorkouts] = useState<any[]>([/*{date: "Jan 1st", exercises: [{name: "Bench Press", weight: 40, reps: 8},{name: "Bicep Curl", weight: 10, reps: 12}]}*/]);
     const [showForm, setShowForm] = useState(false)
@@ -45,7 +53,21 @@ function Home() {
             setShowForm(false)
         })
     }
-    
+    function displayScheduleMessage() {
+        if (workoutCount>0){
+            return "Well Done! You're planning ahead"
+        } else {
+            return "No scheduled workouts? You're falling behind!"
+        }
+    }
+    function displaySummary() {
+        if (totalWorkouts<10) {
+            return "Put some more work in! At least 10 workouts!"
+        }else {
+            return "Wow! You've been putting in the work!"
+        }
+    }
+        
     return (    
     <div className="container">
         <img src="/logo.png" alt="logo" className="logo" width="100"></img>
@@ -57,9 +79,14 @@ function Home() {
             <div className="box">
                 <h3>Summary</h3>
                 <h3>Total workouts: {totalWorkouts}</h3>
+                <p>{displaySummary()}</p>
+                <h4>View past workouts in the Workouts section</h4>
             </div>
             <div className="box">
                 <h3>Schedule</h3>
+                <h3>Total Scheduled Workouts: {workoutCount}</h3>
+                <p>{displayScheduleMessage()}</p>
+                <h4>View details in the Schedule section</h4>
             </div>
         </div>
         <button onClick={() => setShowForm(true)}>Add Workout</button>
