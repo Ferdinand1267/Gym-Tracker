@@ -1,25 +1,30 @@
 package com.gymtracker.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.gymtracker.backend.repository.UserRepository;
 import com.gymtracker.backend.model.User;
 import com.gymtracker.backend.model.Workout;
 import com.gymtracker.backend.repository.WorkoutRepository;
+import com.gymtracker.backend.service.WorkoutService;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/workouts")
 public class WorkoutController {
     @Autowired
     private WorkoutRepository workoutRepository; //this links to the DB helper
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private WorkoutService workoutService;
 
     @GetMapping //this gets all workouts
     public List<Workout> getAllWorkouts() {
-        return workoutRepository.findAll();
+        return workoutService.findAll();
     }
     @PostMapping
-    public Workout addWorkout(@RequestBody Workout workout) {
+    public Workout addUserWorkout(@RequestBody Workout workout) {
         if (workout.getExercises() != null) {
             workout.getExercises().forEach(exercise -> exercise.setWorkout(workout));
         }
@@ -34,7 +39,13 @@ public class WorkoutController {
     public Workout addWorkout(@PathVariable Long userId, @RequestBody Workout workout) {
         User user = userRepository.findById(userId).orElseThrow();
         workout.setUser(user);
-        workout.getExercises().forEach(ex -> ex.setWorkout(workout));
+        workout.getExercises().forEach(exercise -> exercise.setWorkout(workout));
         return workoutRepository.save(workout);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWorkout(@PathVariable Long id) {
+        workoutService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

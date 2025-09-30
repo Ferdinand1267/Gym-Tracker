@@ -4,10 +4,10 @@ import NavBar from '../NavBar'
 import { SearchBar } from "../components/SearchBar.tsx"
 
 type Exercise = {name: string; weight: number; reps: number}
-type Workout = {date: string; exercises: Exercise[]}
+type Workout = {id?: number; date: string; exercises: Exercise[]}
 
 function Workouts() {
-    const [workouts, setWorkouts] = useState<any[]>([/*{date: "Jan 1st", exercises: [{name: "Bench Press", weight: 40, reps: 8},{name: "Bicep Curl", weight: 10, reps: 12}]}*/]);
+    const [workouts, setWorkouts] = useState<Workout[]>([/*{date: "Jan 1st", exercises: [{name: "Bench Press", weight: 40, reps: 8},{name: "Bicep Curl", weight: 10, reps: 12}]}*/]);
     const [showForm, setShowForm] = useState(false)
     const [newWorkout, setNewWorkout] = useState<Workout>({date: "", exercises: []})
     const [newExercise, setNewExercise] = useState<Exercise>({name: "", weight: 0, reps: 0})
@@ -43,7 +43,7 @@ function Workouts() {
         }
         const workoutToSave = {
             date: newWorkout.date,
-            exercises: [newExercise]}   
+            exercises: exercisesToSave}   
         fetch("http://localhost:8080/api/workouts",{
             method: "POST",
             headers: { "Content-Type": "application/json"},
@@ -56,6 +56,12 @@ function Workouts() {
             setNewWorkout({date: "", exercises: []})
             setNewExercise({name: "", weight: 0, reps: 0})
         })
+    }
+    function removeWorkout(id?: number) {
+        fetch("http://localhost:8080/api/workouts",{
+            method: "DELETE",
+        })
+        .then(() => {setWorkouts(workouts.filter(w => w.id !== id))})
     }
 
     return (
@@ -83,14 +89,16 @@ function Workouts() {
             </div>
         )}
         <div className="displaybox">
-            {workouts.map((workout,index) => (  
-                <div key={index}>
+            {workouts.map((workout) => (  
+                <div key={workout.id ?? workout.date}>
                     <h3>{workout.date}</h3>
                     <ul>
                         {workout.exercises.map((exercise: Exercise, index: number) => (
                             <li key={index}>{exercise.name} - weight: {exercise.weight} * reps: {exercise.reps}</li>
+                            
                         ))}
                     </ul>
+                    <button onClick={() => removeWorkout(workout.id)}>Remove Workout</button>
                 </div>  
                 ))}
         </div >
