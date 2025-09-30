@@ -25,4 +25,8 @@ public class UserService {
             return "Incorrect";
         }
     }
+
+    public User registerUser(User user) {
+        return userRepository.save(user);
+    }
 }

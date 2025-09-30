@@ -58,7 +58,7 @@ function Workouts() {
         })
     }
     function removeWorkout(id?: number) {
-        fetch("http://localhost:8080/api/workouts",{
+        fetch(`http://localhost:8080/api/workouts/${id}`,{
             method: "DELETE",
         })
         .then(() => {setWorkouts(workouts.filter(w => w.id !== id))})

@@ -19,6 +19,13 @@ import com.gymtracker.backend.repository.UserRepository;
 public class UserController {
     @Autowired 
     private UserService userService;
+
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user) {
+        User savedUser = userService.registerUser(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED); // 201 Created
+    }
+
     @PostMapping("/login")
     public boolean login(@RequestBody User info) {
         return userService.authenticateUser(info.getUsername(), info.getPassword()).equals("Correct");
