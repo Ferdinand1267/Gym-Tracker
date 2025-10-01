@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
-  const [username, setUsername] = useState(""); //stores username input
-  const [password, setPassword] = useState(""); // stores password input
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
   const navigate = useNavigate()
   const handleLogin = async () => {
     const response = await fetch("http://localhost:8080/api/users/login", {
@@ -15,8 +15,8 @@ function Login() {
     })
     const data: boolean = await response.json();
     if (data) {
-      localStorage.setItem("username", username); // save login
-      navigate("/home");          // redirect using react router
+      localStorage.setItem("username", username); 
+      navigate("/home");          
     } else {
       alert("Username or password is incorrect.");
     }

@@ -13,7 +13,7 @@ public class Exercise {
 
     @ManyToOne
     @JoinColumn(name = "workout_id")
-    @JsonBackReference //to no serialize back with parent
+    @JsonBackReference //to not serialize back with parent
     private Workout workout;
 
     //getters and setters

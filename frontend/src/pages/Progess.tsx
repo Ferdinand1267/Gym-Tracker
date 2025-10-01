@@ -36,23 +36,34 @@ function Progress() {
         ]}
     ]*/ //sample data for frontend
 
-    const benchData: {date: string, weight: number, reps: number}[] =[]
+    const [selectExercise, setSelectExercise] = useState<string>("Bench Press");
+    const allExercises: string[] = [];
     workouts.forEach(workout => {
-    workout.exercises.forEach(exercise => {
-        if (exercise.name == "Bench Press") {
-            benchData.push({date: workout.date, weight: exercise.weight, reps: exercise.reps})
-        }
+        workout.exercises.forEach(exercise => {
+            if (!allExercises.includes(exercise.name)) {
+                allExercises.push(exercise.name);
+            }
+        })
     })
+
+    const selectData: {date: string, weight: number, reps: number}[] =[]
+    
+    workouts.forEach(workout => {
+        workout.exercises.forEach(exercise => {
+            if (exercise.name == selectExercise) {
+                selectData.push({date: workout.date, weight: exercise.weight, reps: exercise.reps})
+            }
+        })
     })
 
     const [metric, setMetric] = useState("weight")
     const [timeRange, setTimeRange] = useState<"all" | "7 days" | "30 days">("all")
     let label ="";
     if (metric=="weight") {
-        label="Weight (kg)"
+        label="Weight (kg)";
     }
     if (metric=="reps") {
-        label="Reps"
+        label="Reps";
     }
 
     function filterByTimeRange(data: { date: string; weight: number; reps: number }[], range: "all" | "7 days" | "30 days") {
@@ -69,7 +80,7 @@ function Progress() {
         last.setDate(today.getDate() - howManyDays)
         return data.filter(day => new Date(day.date) >= last)
       }
-    const filtered =filterByTimeRange(benchData, timeRange)
+    const filtered =filterByTimeRange(selectData, timeRange)
     
     function oneRM(weight: number, reps: number): number {
         return weight * (1 + reps/30)
@@ -121,10 +132,20 @@ function Progress() {
             <button onClick={() => setTimeRange("7 days")}>Last 7 Days</button>
             <button onClick={() => setTimeRange("30 days")}>Last 30 Days</button>
             <button onClick={() => setTimeRange("all")}>All Time</button>
+
+            <ul>
+                {allExercises.map((name) => (
+                    <button key={name} onClick={() => setSelectExercise(name)}>{name}</button>    
+                ))}
+            </ul>
         </div>
         <div className="box">
             <h2>One Rep Max</h2>
-            <p>Exercise - Bench Press: {exercise1Max(workouts, "Bench Press")}</p>
+            <ul>
+                {allExercises.map((name) => (
+                    <p key={name}> Exercise - {name}: {exercise1Max(workouts, name)}</p>
+                ))}
+            </ul>
         </div>
 
         <NavBar/>

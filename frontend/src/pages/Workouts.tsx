@@ -78,9 +78,9 @@ function Workouts() {
                 <button type="button" onClick={addExercise}>Add Exercise</button>
                 {newWorkout.exercises.length > 0 && (
                     <ul>
-                    {newWorkout.exercises.map((ex, i) => (
+                    {newWorkout.exercises.map((exercise, i) => (
                         <li key={i}>
-                        {ex.name} — {ex.weight} kg × {ex.reps}
+                        {exercise.name} — {exercise.weight} kg × {exercise.reps}
                         </li>
                     ))}
                     </ul>
@@ -94,8 +94,7 @@ function Workouts() {
                     <h3>{workout.date}</h3>
                     <ul>
                         {workout.exercises.map((exercise: Exercise, index: number) => (
-                            <li key={index}>{exercise.name} - weight: {exercise.weight} * reps: {exercise.reps}</li>
-                            
+                            <li key={index}>{exercise.name} - weight: {exercise.weight} * reps: {exercise.reps}</li>       
                         ))}
                     </ul>
                     <button onClick={() => removeWorkout(workout.id)}>Remove Workout</button>

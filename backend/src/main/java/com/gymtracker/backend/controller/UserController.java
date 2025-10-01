@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         User savedUser = userService.registerUser(user);
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED); // 201 Created
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED); 
     }
 
     @PostMapping("/login")
