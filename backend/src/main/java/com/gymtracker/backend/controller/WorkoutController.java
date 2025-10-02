@@ -13,13 +13,13 @@ import com.gymtracker.backend.service.WorkoutService;
 @RequestMapping("/api/workouts")
 public class WorkoutController {
     @Autowired
-    private WorkoutRepository workoutRepository; //this links to the DB helper
+    private WorkoutRepository workoutRepository; 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private WorkoutService workoutService;
 
-    @GetMapping //this gets all workouts
+    @GetMapping 
     public List<Workout> getAllWorkouts() {
         return workoutService.findAll();
     }

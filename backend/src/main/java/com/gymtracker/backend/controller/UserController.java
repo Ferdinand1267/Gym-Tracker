@@ -20,11 +20,6 @@ public class UserController {
     @Autowired 
     private UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User savedUser = userService.registerUser(user);
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED); 
-    }
 
     @PostMapping("/login")
     public boolean login(@RequestBody User info) {
